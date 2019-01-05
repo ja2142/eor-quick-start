@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<link rel="shortcut icon" href="/favicon.ico">
+	<link rel="stylesheet" type="text/css" href="main.css">
+	<script defer type="text/javascript" src="main.js"></script>
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta name="theme-color" content="#30609E">
+
+	<title>Wifi Configuration</title>
+</head>
+
+<body>
+	<noscript>
+		You need to enable JavaScript to run this app.
+	</noscript>
+
+
+	<form>
+		<h1>WiFi Station configuration</h1>
+		<div id="sta_load" hidden>
+			<div class="form-load-outer">
+				<div class="form-load">scanning for networks</div>
+				<div class="spinner"></div>
+			</div>
+		</div>
+		<div>
+			<label>Network SSID</label>
+			<select id="sta_ssid" name="sta_ssid" onchange="selectionChanged()">
+				<option disabled selected value> -- select ssid -- </option>
+				<option value="other">Enter manually</option>
+			</select>
+		</div>
+		<div id="sta_ssid_man_div" hidden>
+			<label>Enter SSID manualy</label>
+			<input id="sta_ssid_man" name="sta_ssid_man" maxlength=32>
+		</div>
+		<div hidden id="sta_ssid_error" class="form-error">You must provide SSID either by choosing from the list, or
+			selecting "Enter manually" and entering it manually</div>
+		<div>
+			<label>Network passphrase</label>
+			<input id="sta_pass" name="sta_pass" maxlength=64>
+		</div>
+		<div hidden id="sta_pass_error" class="form-error">Passphrase should have at least 8 characters. Leave the
+			field empty to connect to unprotected network</div>
+		<button type="button" onclick="submitSTA()">change station config</button>
+		<div class="form-success" id="sta_success" hidden>Station configuration changed</div>
+	</form>
+
+	<form>
+		<h1>WiFi access point configuration</h1>
+		<div>
+			<label>Network SSID</label>
+			<input id="ap_ssid" name="ap_ssid" maxlength=32>
+		</div>
+		<div hidden id="ap_ssid_error" class="form-error">SSID can't be empty</div>
+		<div>
+			<label>Network passphrase</label>
+			<input id="ap_pass" name="ap_pass" maxlength=64>
+		</div>
+		<div hidden id="ap_pass_error" class="form-error">Passphrase should have at least 8 characters</div>
+		<div>
+			<div style="display: inline-block;"><label>Make AP hidden</label></div>
+			<label class="switch">
+				<input id="ap_hidden" type="checkbox">
+				<span class="slider"></span>
+			</label>
+		</div>
+		<button type="button" onclick="submitAP()">change AP config</button>
+		<div class="form-success" id="ap_success" hidden>Access point configuration changed</div>
+	</form>
+
+	<form>
+		<div><button type="button" onclick="reboot()">reboot</button></div>
+		<div class="form-success" id="reboot_success" hidden>Rebooting...</div>
+		<div><label>reboot is required for access point changes to take place</label></div>
+	</form>
+
+
+</body>
+
+</html>
