@@ -121,6 +121,7 @@ int cgiWiFiStaCredentials(HttpdConnData *connData)
 		return HTTPD_CGI_DONE;
 	}
 	printf("changing station credentials - ssid: %s pw %s\n", ssid, pass);
+	sysparam_set_int8("sta_configured", true);
 
 	struct sdk_station_config sta_config;
 	sdk_wifi_station_get_config(&sta_config);
@@ -128,6 +129,7 @@ int cgiWiFiStaCredentials(HttpdConnData *connData)
 	memcpy(sta_config.ssid, ssid, 32);
 	memcpy(sta_config.password, pass, 64);
 	sdk_wifi_station_set_config(&sta_config);
+	sdk_wifi_station_connect();
 
 	httpdStartResponse(connData, 200); //ok
 	httpdHeader(connData, "Content-Type", "application/json");

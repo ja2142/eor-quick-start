@@ -13,13 +13,13 @@
 
 static void start_AP(){
     printf("AP_start\n");
-    sdk_wifi_set_opmode(STATIONAP_MODE);
+    sysparam_set_int8("opmode", STATIONAP_MODE);
     sdk_system_restart();
 }
 
 static void stop_AP(){
     printf("AP_stop\n");
-    sdk_wifi_set_opmode(STATION_MODE);
+    sysparam_set_int8("opmode", STATION_MODE);
     sdk_system_restart();
 }
 
@@ -36,14 +36,14 @@ static void wifiManagerTask(void *arg) {
     int time_elapsed = 0;
     while(1){
         if(connected){ //monitoring for disconnection
-            while(1){//printf("connected: %i, ap: %i\n", station_connected(), ap_active());
+            while(1){
                 connected = station_connected();
                 if (!connected) {break;}
                 vTaskDelay(pdMS_TO_TICKS(5000));    
             }
             printf("disconnected\n");
         }else{ //waiting for connection
-            while(1){//printf("connected: %i, ap: %i\n", station_connected(), ap_active());
+            while(1){
                 connected = station_connected();
                 if (connected) {break;}
                 vTaskDelay(pdMS_TO_TICKS(1000));
