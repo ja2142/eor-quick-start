@@ -53,7 +53,6 @@ CgiUploadFlashDef uploadParams={
 	.tagName=LIBESPHTTPD_OTA_TAGNAME
 };
 
-
 void mdnsStarterTask(void* arg){
 	switch(sdk_wifi_get_opmode()) {//apropriate waiting scheme
 		case STATIONAP_MODE:
@@ -89,9 +88,6 @@ HttpdBuiltInUrl builtInUrls[]={
 	{"*", cgiRedirectApClientToHostname, "esp8266.nonet"},
 	{"/", cgiEspFsHook, "/index.html"},
 	{"/wificfg/", cgiEspFsHook, "/wificfg/index.html"},
-	{"/led.tpl", cgiEspFsTemplate, tplLed},
-	{"/index.tpl", cgiEspFsTemplate, tplCounter},
-	{"/led.cgi", cgiLed, NULL},
 #ifndef ESP32
 	{"/flash/", cgiRedirect, "/flash/index.html"},
 	{"/flash/next", cgiGetFirmwareNext, &uploadParams},
